@@ -8,6 +8,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Input from "@material-ui/core/Input";
+import TextField from "@material-ui/core/TextField"
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import { KeyboardDateTimePicker } from "@material-ui/pickers"
 
 import api from "../../utils/api";
 
@@ -24,6 +29,7 @@ class FeedingList extends Component {
     super();
     this.state = {
       feedingEvents: [],
+      feedingTime: new Date(),
       errors: {},
     };
   }
@@ -31,10 +37,6 @@ class FeedingList extends Component {
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     this.getFeedingEvents();
-  }
-
-  createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
   }
 
   getFeedingEvents() {
@@ -45,6 +47,34 @@ class FeedingList extends Component {
         console.log(error);
       })
   }
+
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
+  onFeedingDateChange = dt => {
+    this.setState({ feedingTime: dt })
+  }
+
+  onSubmit = e => {
+    e.preventDefault();
+
+    const feedingData = {
+      amount: this.state.amount,
+      fedOn: this.state.feedingTime
+    };
+
+    api
+      .post("/api/feeding/feeding_event", feedingData)
+      .then(res => {
+        let rows = this.state.feedingEvents;
+        rows.push(res.data);
+        this.setState({feedingEvents: rows})
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
 
   render() {
     return (
@@ -69,6 +99,38 @@ class FeedingList extends Component {
             ))}
           </TableBody>
         </Table>
+        <form onSubmit={this.onSubmit}>
+          <Table aria-label="simple table">
+            <TableBody>
+                <TableRow>       
+                  <TableCell align="right">
+                    <Input id="amount" placeholder="Amount" 
+                      disableUnderline="true"
+                      onChange={this.onChange}
+                    />
+                  </TableCell>
+                  <TableCell align="right" className="sm10" >
+                    <Grid container>
+                      <Grid item xs={10}>
+                      <KeyboardDateTimePicker
+                        id="feedingTime"
+                        variant="inline"
+                        label="Fed on"
+                        value={this.state.feedingTime}
+                        onChange={this.onFeedingDateChange}
+                        onError={console.log}
+                      />
+                      </Grid>
+                      <Grid item xs={2}>
+                        <Button variant="contained" color="primary" type="submit">+</Button>
+                      </Grid>
+                      
+                    </Grid>
+                  </TableCell>
+                </TableRow>
+            </TableBody>
+          </Table>
+        </form>
       </TableContainer>
     );
   }

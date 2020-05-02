@@ -18,7 +18,7 @@ module.exports = function validateFeedingEventInput(data) {
     // FedOn checks
     if (validator.isEmpty(data.fedOn)) {
         errors.fedOn = "FedOn field is required";
-    } else if (!validator.isISO8601(data.fedOn) || (!validator.isLength(data.fedOn, { min: 20, max: 20 }))) {
+    } else if (!validator.isISO8601(data.fedOn) || (!validator.isLength(data.fedOn, { min: 20 }))) {
         errors.fedOn = "FedOn field is invalid";
     }
 
