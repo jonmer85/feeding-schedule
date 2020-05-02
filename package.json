@@ -8,8 +8,11 @@
     "test": "jest -i --verbose --coverage --runInBand",
     "start": "node index.js",
     "dboff": "killall mongod",
-    "watch": "nodemon index.js",
-    "dbon": "mkdir -p ./db && mongod --dbpath ./db"
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "client-install": "npm install --prefix client",
+    "dbon": "mkdir -p ./db && mongod --dbpath ./db",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -32,7 +35,7 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "jest": "^25.5.2",
+    "jest": "^24.9.0",
     "nodemon": "^2.0.3"
   }
 }
