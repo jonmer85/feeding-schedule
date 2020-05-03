@@ -6,19 +6,17 @@ class Navbar extends Component {
   render() {
     return (
       <div className="navbar-fixed">
-        <nav className="z-depth-0">
-          <div className="nav-wrapper white">
-            <Link
+        <nav>
+          <div className="nav-wrapper teal lighten-3 center">
+              <img href="/" src="https://storage.googleapis.com/meran-tech-public/bottle-192x192.png" height="40" width="40" style={{ marginTop: "10px"}}/>
+              <Link
               to="/"
               style={{
-                fontFamily: "monospace"
+                fontFamily: "monospace",
+                fontSize: "200%",
+                verticalAlign: "super"
               }}
-              className="col s5 brand-logo center black-text"
-            > 
-              <span>
-                <img src="https://storage.googleapis.com/meran-tech-public/bottle-192x192.png" height="40" width="40" style={{ verticalAlign: "middle", marginRight: "20px" }} />
-              </span>
-              Feeding Schedule
+            > Feeding Schedule
             </Link>
           </div>
         </nav>

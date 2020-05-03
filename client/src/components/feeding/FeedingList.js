@@ -14,6 +14,8 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { KeyboardDateTimePicker } from "@material-ui/pickers"
 
+import format from "date-fns/format"
+
 import api from "../../utils/api";
 
 // const useStyles = makeStyles({
@@ -84,7 +86,8 @@ class FeedingList extends Component {
             <TableRow>
               {/* <TableCell>Dessert (100g serving)</TableCell> */}
               <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Fed On</TableCell>
+              <TableCell align="right">Fed On Time</TableCell>
+              <TableCell align="right">Fed On Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -93,8 +96,9 @@ class FeedingList extends Component {
                 {/* <TableCell component="th" scope="row">
                   {row.fedOn}
                 </TableCell> */}          
-                <TableCell align="right">{row.amount}</TableCell>
-                <TableCell align="right">{row.fedOn}</TableCell>
+                <TableCell align="right">{row.amount} oz</TableCell>
+                <TableCell align="right">{format(new Date(row.fedOn), 'hh:mm aa')}</TableCell>
+                <TableCell align="right">{format(new Date(row.fedOn), 'M/d/yy')}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -27,7 +27,7 @@ class Dashboard extends Component {
         <div className="row">
             <FeedingList />
         </div>
-        <div class="center-align">
+        <div className="center-align">
         <button
               style={{
                 width: "150px",
