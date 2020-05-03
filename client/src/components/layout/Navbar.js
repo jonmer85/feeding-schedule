@@ -16,7 +16,7 @@ class Navbar extends Component {
               className="col s5 brand-logo center black-text"
             > 
               <span>
-                <img src="https://storage.cloud.google.com/meran-tech-public/bottle-192x192.png" height="40" width="40" style={{ verticalAlign: "middle", marginRight: "20px" }} />
+                <img src="https://storage.googleapis.com/meran-tech-public/bottle-192x192.png" height="40" width="40" style={{ verticalAlign: "middle", marginRight: "20px" }} />
               </span>
               Feeding Schedule
             </Link>
