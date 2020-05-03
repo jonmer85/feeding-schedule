@@ -14,7 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { KeyboardDateTimePicker } from "@material-ui/pickers"
 import IconButton from '@material-ui/core/IconButton';
-import AddCircle from "@material-ui/icons/AddCircle"
+import Icon from "@material-ui/core/Icon"
 
 import format from "date-fns/format"
 
@@ -132,7 +132,7 @@ class FeedingList extends Component {
                       </Grid>
                       <Grid item xs={2} className="spacing-xs-1">
                         <IconButton type="submit">
-                          <AddCircle type="submit" />
+                          <Icon color="primary">add_circle</Icon>
                         </IconButton>
                       </Grid>
                     </Grid>
