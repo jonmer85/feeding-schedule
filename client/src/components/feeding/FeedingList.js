@@ -13,6 +13,8 @@ import TextField from "@material-ui/core/TextField"
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { KeyboardDateTimePicker } from "@material-ui/pickers"
+import IconButton from '@material-ui/core/IconButton';
+import AddCircle from "@material-ui/icons/AddCircle"
 
 import format from "date-fns/format"
 
@@ -111,6 +113,7 @@ class FeedingList extends Component {
                     <Input id="amount" placeholder="Amount" 
                       disableUnderline="true"
                       onChange={this.onChange}
+                      inputProps= {{  style: { fontSize: "12px" } }}
                     />
                   </TableCell>
                   <TableCell align="right" className="sm10" >
@@ -119,16 +122,19 @@ class FeedingList extends Component {
                       <KeyboardDateTimePicker
                         id="feedingTime"
                         variant="inline"
-                        label="Fed on"
                         value={this.state.feedingTime}
                         onChange={this.onFeedingDateChange}
                         onError={console.log}
+                        disableFuture="true"
+                        InputProps={{ disableUnderline: true, }}
+                        inputProps={{style: { fontSize: "12px"} }} 
                       />
                       </Grid>
-                      <Grid item xs={2}>
-                        <Button variant="contained" color="primary" type="submit">+</Button>
+                      <Grid item xs={2} className="spacing-xs-1">
+                        <IconButton type="submit">
+                          <AddCircle type="submit" />
+                        </IconButton>
                       </Grid>
-                      
                     </Grid>
                   </TableCell>
                 </TableRow>
@@ -140,28 +146,5 @@ class FeedingList extends Component {
   }
 }
 
-// const rows = [
-//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-//   createData("Eclair", 262, 16.0, 24, 6.0),
-//   createData("Cupcake", 305, 3.7, 67, 4.3),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9),
-// ];
-
 export default FeedingList;
 
-// Login.propTypes = {
-//     loginUser: PropTypes.func.isRequired,
-//     auth: PropTypes.object.isRequired,
-//     errors: PropTypes.object.isRequired
-//   };
-
-//   const mapStateToProps = state => ({
-//     auth: state.auth,
-//     errors: state.errors
-//   });
-
-//   export default connect(
-//     mapStateToProps,
-//     { loginUser }
-//   )(Login);
