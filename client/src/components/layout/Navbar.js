@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+
 class Navbar extends Component {
   render() {
     return (
@@ -13,9 +14,11 @@ class Navbar extends Component {
                 fontFamily: "monospace"
               }}
               className="col s5 brand-logo center black-text"
-            >
-              <i className="material-icons">code</i>
-              MERN
+            > 
+              <span>
+                <img src="https://storage.cloud.google.com/meran-tech-public/bottle-192x192.png" height="40" width="40" style={{ verticalAlign: "middle", marginRight: "20px" }} />
+              </span>
+              Feeding Schedule
             </Link>
           </div>
         </nav>

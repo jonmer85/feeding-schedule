@@ -20,9 +20,15 @@ class Dashboard extends Component {
           <div className="col s12 center-align">
             <h4>
               <b>Hey there,</b> {user.name.split(" ")[0]}
-
             </h4>
-            <button
+            <h5>Here is your baby's feeding schedule</h5>
+          </div>
+        </div>
+        <div className="row">
+            <FeedingList />
+        </div>
+        <div class="center-align">
+        <button
               style={{
                 width: "150px",
                 borderRadius: "3px",
@@ -34,10 +40,6 @@ class Dashboard extends Component {
             >
               Logout
             </button>
-          </div>
-        </div>
-        <div className="row">
-            <FeedingList />
         </div>
       </div>
     );

@@ -112,6 +112,8 @@ db/
 
 # yarn v2
 
+.secrets.yaml
+
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
