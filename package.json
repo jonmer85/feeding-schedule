@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint ./",
-    "test": "jest -i --verbose --coverage --runInBand",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "start": "node index.js",
     "dboff": "killall mongod",
     "server": "nodemon index.js",
@@ -28,14 +29,23 @@
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.11",
+    "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "superagent": "^5.2.2",
     "validator": "^13.0.0"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
     "eslint": "^6.8.0",
     "jest": "^24.9.0",
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "preset": "@shelf/jest-mongodb",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
