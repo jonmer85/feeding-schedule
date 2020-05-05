@@ -42,10 +42,8 @@ class FeedingList extends Component {
   }
 
   sortFeedingEvents(arr) {
-    console.log(arr);
     arr.sort((a,b) => (new Date(b.fedOn) - new Date(a.fedOn)));
     // arr.sort((a,b) => (a.amount - b.amount));
-    console.log(arr);
     return arr
   }
 
