@@ -41,10 +41,18 @@ class FeedingList extends Component {
     this.getFeedingEvents();
   }
 
+  sortFeedingEvents(arr) {
+    console.log(arr);
+    arr.sort((a,b) => (new Date(b.fedOn) - new Date(a.fedOn)));
+    // arr.sort((a,b) => (a.amount - b.amount));
+    console.log(arr);
+    return arr
+  }
+
   getFeedingEvents() {
     api
       .get("/api/feeding/feeding_events")
-      .then(res => this.setState( {feedingEvents: res.data }))
+      .then(res => this.setState( {feedingEvents: this.sortFeedingEvents(res.data) }))
       .catch(function (error) {
         console.log(error);
       })
@@ -64,14 +72,14 @@ class FeedingList extends Component {
     const feedingData = {
       amount: this.state.amount,
       fedOn: this.state.feedingTime
-    };
+    }; 
 
     api
       .post("/api/feeding/feeding_event", feedingData)
       .then(res => {
         let rows = this.state.feedingEvents;
         rows.push(res.data);
-        this.setState({feedingEvents: rows})
+        this.setState({feedingEvents: this.sortFeedingEvents(rows)});
       })
       .catch(function (error) {
         console.error(error);
