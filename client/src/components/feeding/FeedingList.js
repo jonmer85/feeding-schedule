@@ -9,9 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Input from "@material-ui/core/Input";
-import TextField from "@material-ui/core/TextField"
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import { KeyboardDateTimePicker } from "@material-ui/pickers"
 import IconButton from '@material-ui/core/IconButton';
 import Icon from "@material-ui/core/Icon"
@@ -76,9 +74,26 @@ class FeedingList extends Component {
         this.setState({feedingEvents: rows})
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       })
   };
+
+  deleteItem(i) {
+    const { feedingEvents } = this.state;
+    
+    const event = feedingEvents[i];
+
+    api
+    .delete(`/api/feeding/feeding_event/${event._id}`)
+    .then(res => {
+      feedingEvents.splice(i, 1);
+      this.setState( {feedingEvents } )
+    })
+    .catch(function (error) {
+      console.error(error);
+    })
+
+  }
 
   render() {
     return (
@@ -90,10 +105,11 @@ class FeedingList extends Component {
               <TableCell align="right">Amount</TableCell>
               <TableCell align="right">Fed On Time</TableCell>
               <TableCell align="right">Fed On Date</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.feedingEvents.map((row) => (
+            {this.state.feedingEvents.map((row, i) => (
               <TableRow key={row.fedOn}>
                 {/* <TableCell component="th" scope="row">
                   {row.fedOn}
@@ -101,6 +117,11 @@ class FeedingList extends Component {
                 <TableCell align="right">{row.amount} oz</TableCell>
                 <TableCell align="right">{format(new Date(row.fedOn), 'hh:mm aa')}</TableCell>
                 <TableCell align="right">{format(new Date(row.fedOn), 'M/d/yy')}</TableCell>
+                <TableCell align="right">
+                  <IconButton onClick={this.deleteItem.bind(this, i)}>
+                    <Icon color="action">delete</Icon>
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -126,6 +147,7 @@ class FeedingList extends Component {
                         onChange={this.onFeedingDateChange}
                         onError={console.log}
                         disableFuture="true"
+                        autoOk="true"
                         InputProps={{ disableUnderline: true, }}
                         inputProps={{style: { fontSize: "12px"} }} 
                       />

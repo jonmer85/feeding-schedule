@@ -12,6 +12,7 @@ let connection;
       useUnifiedTopology: true
     });
     db = await connection.db();
+    await db.collection("users").deleteMany();
   });
 
   afterAll(async () => {
