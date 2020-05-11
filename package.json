@@ -20,6 +20,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ask-sdk": "^2.8.0",
+    "ask-sdk-core": "^2.8.0",
+    "ask-sdk-express-adapter": "^2.0.1",
+    "ask-sdk-model": "^1.28.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^5.2.0",
@@ -29,6 +33,7 @@
     "http-errors": "^1.7.3",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
+    "moment-timezone": "^0.5.28",
     "mongoose": "^5.9.11",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
