@@ -78,10 +78,75 @@ const LogFeedingEventRequestHandler = {
     await newFeedingEvent.save();
 
     const speakOutput = time
-      ? `Thanks Stacey, I'll log Isla's feeding event of ${amount} ounces at ${time}`
+      ? `Thanks Stacey, I'll log Isla's feeding event of ${amount} ounces at ${fedOn.format(
+          "hh:mm a"
+        )}`
       : `Thanks Stacey, I'll log Isla's feeding event of ${amount} ounces`;
     return handlerInput.responseBuilder.speak(speakOutput).getResponse();
   },
 };
 
-module.exports = { LaunchRequestHandler, LogFeedingEventRequestHandler };
+const GetLastFeedingEventRequestHandler = {
+  canHandle(handlerInput) {
+    return (
+      Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+      Alexa.getIntentName(handlerInput.requestEnvelope) ===
+        "GetLastFeedingIntent"
+    );
+  },
+
+  async handle(handlerInput) {
+    console.log("GetLastFeedingEventRequestHandler");
+    let max = await FeedingEvent.findOne({
+      userEmail: "smcgowan1405@gmail.com",
+    }).sort({ fedOn: -1 });
+
+    if (max) {
+      const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
+
+      const serviceClientFactory = handlerInput.serviceClientFactory;
+      const deviceId =
+        handlerInput.requestEnvelope.context.System.device.deviceId;
+      console.log(deviceId);
+
+      let userTimeZone;
+      try {
+        const upsServiceClient = serviceClientFactory.getUpsServiceClient();
+        userTimeZone = await upsServiceClient.getSystemTimeZone(deviceId);
+        console.log(userTimeZone);
+      } catch (error) {
+        if (error.name !== "ServiceError") {
+          return handlerInput.responseBuilder
+            .speak("There was a problem connecting to the service.")
+            .getResponse();
+        }
+        console.log("error", error.message);
+      }
+      console.log("userTimeZone", userTimeZone);
+
+      console.log(max.fedOn.toISOString());
+
+      moment.tz.setDefault(userTimeZone);
+      lastFeeding = moment(max.fedOn, "hh:mm a");
+
+      const speakOutput = name
+        ? `The last feeding for ${name} was ${
+            max.amount
+          } ounces at ${lastFeeding.format("hh:mm a")}`
+        : `The last feeding was ${max.amount} ounces at ${lastFeeding.format(
+            "hh:mm a"
+          )}`;
+      return handlerInput.responseBuilder.speak(speakOutput).getResponse();
+    } else {
+      return handlerInput.responseBuilder
+        .speak("No feeding events found")
+        .getResponse();
+    }
+  },
+};
+
+module.exports = {
+  LaunchRequestHandler,
+  LogFeedingEventRequestHandler,
+  GetLastFeedingEventRequestHandler,
+};

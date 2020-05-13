@@ -15,6 +15,7 @@ const feeding = require("./routes/api/feeding.routes");
 const {
   LaunchRequestHandler,
   LogFeedingEventRequestHandler,
+  GetLastFeedingEventRequestHandler,
 } = require("./routes/api/alexa.routes");
 
 const Alexa = require("ask-sdk-core");
@@ -25,7 +26,8 @@ const skillBuilder = Alexa.SkillBuilders.custom().withApiClient(
 );
 skillBuilder.addRequestHandlers(
   LaunchRequestHandler,
-  LogFeedingEventRequestHandler
+  LogFeedingEventRequestHandler,
+  GetLastFeedingEventRequestHandler
 );
 
 const skill = skillBuilder.create();
